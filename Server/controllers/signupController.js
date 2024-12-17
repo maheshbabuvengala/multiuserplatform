@@ -45,14 +45,27 @@ const Login = async (req, res) => {
       res.status(200).json({ message: "Login successful", token });
     }
 
-    if (log) {
-      res.status(200).json({ message: "User Login successful" });
-    } else {
+    // if (log) {
+    //   res.status(200).json({ message: "User Login successful" });
+    // } else {
+    //   res.status(400).json({ message: "User not found" });
+    // }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const GetUser = async (req, res) => {
+  try {
+    const Verifieduser = await Signup.findById(req.UserId);
+    if (!Verifieduser) {
       res.status(400).json({ message: "User not found" });
+    } else {
+      res.status(200).json(Verifieduser);
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { Signups, Login };
+module.exports = { Signups, Login, GetUser };
