@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [details, setDetails] = useState([]);
+
+  const GetDetails = async () => {
+    const token = await localStorage.getItem("token");
+
+    const response = await fetch(`http://localhost:3000/user/getuser`, {
+      method: "Get",
+      headers: {
+        token: `${token}`,
+      },
+    });
+
+    const userDetails = await response.json();
+    setDetails(userDetails);
+  };
+
+  useEffect(() => {
+    GetDetails();
+  }, []);
+
   return (
     <div>
       <div
@@ -13,7 +33,7 @@ const Navbar = () => {
           alignItems: "center",
         }}
       >
-        <h1>Name: </h1>
+        <h1>Name:{details?.name || "Yourname"} </h1>
         <button
           style={{
             width: "80px",

@@ -13,6 +13,12 @@ const SignupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  collegePosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Posts",
+    },
+  ],
 });
 
 const SignupModel = mongoose.model("Signup", SignupSchema);
